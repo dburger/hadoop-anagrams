@@ -1,0 +1,34 @@
+Example of using Apache Hadoop to count / list anagrams from your OS dictionary
+file.
+
+# format the distributed filesystem
+$ bin/hadoop namenode -format
+
+# start all the daemons
+$ bin/start-all.sh
+
+# make an anagram/input directory in the distributed file system
+$ bin/hadoop fs -mkdir anagram
+$ bin/hadoop fs -mkdir anagram/input
+
+# put your dictionary file in that directory
+$ bin/hadoop fs -put /usr/share/dict/american-english anagram/input
+
+# run your job on it
+$ bin/hadoop jar /home/dburger/Desktop/anagram/dist/anagram.jar \
+    com.dburger.hadoop.anagram.AnagramCount \
+    /user/dburger/anagram/input /user/dburger/anagram/output
+
+# or
+$ bin/hadoop jar /home/dburger/Desktop/anagram/dist/anagram.jar \
+    com.dburger.hadoop.anagram.AnagramList \
+    /user/dburger/anagram/input /user/dburger/anagram/output
+
+# look at the output directory
+$ bin/hadoop fs -ls /user/dburger/anagram/output
+
+# cat the output file
+$ bin/hadoop fs -cat /user/dburger/anagram/output/part-00000
+
+# or get it locally
+$ bin/hadoop fs -get /user/dburger/anagram/output/part-00000 results.txt
