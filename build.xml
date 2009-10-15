@@ -26,7 +26,7 @@
     <!-- Compile the java code from ${src} into ${build} -->
     <javac srcdir="${src}" destdir="${build}">
       <classpath refid="project.class.path"/>
-      <!-- <compilerarg value="-Xlint"/> -->
+      <compilerarg value="-Xlint"/>
     </javac>
   </target>
 
